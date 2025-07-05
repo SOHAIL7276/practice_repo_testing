@@ -8,7 +8,7 @@ oracle_engine = create_engine("oracle+cx_oracle://system:NewPassword123@localhos
 mysql_engine_stag =  create_engine("mysql+pymysql://root:Ambreen%407276@localhost:3306/stag_retaildwh")
 
 logging.basicConfig(
-    filename='Print_Logging/Extraction.log',
+    filename='LogFiles/Extraction.log',
     filemode = 'a',
     format='%(asctime)s-%(levelname)s-%(message)s',
     level =logging.INFO
