@@ -7,7 +7,7 @@ oracle_engine = create_engine("oracle+cx_oracle://system:admin@localhost:1521/xe
 mysql_engine = create_engine("mysql+pymysql://root:Admin%40143@localhost:3308/stag_retaildwg")
 
 logging.basicConfig(
-    filename='LogFiles/Extraction.log',
+    filename='../CodeBase/LogFiles/Extraction.log',
     filemode = 'a',
     format='%(asctime)s-%(levelname)s-%(message)s',
     level =logging.INFO
@@ -38,7 +38,7 @@ def extract_product_data_from_file():
 def extract_supplier_data_from_file():
     try:
         logger.info("supplier data extraction started....")
-        df = pd.read_json("SourceSystems/supplier_data.json")
+        df = pd.read_json("../CodeBase/SourceSystems/supplier_data.json")
         df.to_sql("staging_supplier",mysql_engine,if_exists='replace',index=False)
         logger.info("supplier data extraction completed....")
     except Exception as e:
@@ -47,7 +47,7 @@ def extract_supplier_data_from_file():
 def extract_inventory_data_from_file():
     try:
         logger.info("inventory data extraction started....")
-        df = pd.read_xml("SourceSystems/inventory_data.xml",xpath=".//item")
+        df = pd.read_xml("../CodeBase/SourceSystems/inventory_data.xml", xpath=".//item")
         df.to_sql("staging_supplier",mysql_engine,if_exists='replace',index=False)
         logger.info("inventory data extraction completed....")
     except Exception as e:
