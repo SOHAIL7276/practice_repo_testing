@@ -32,7 +32,7 @@ def extract_sales_data_from_file():
     try:
         logger.info("sales data extraction started.....")
         df = pd.read_csv ("SourceSystems/sales_data_linux_remote.csv")
-        df.to_sql("testing_123_staging_sales", mysql_engine,if_exists='replace',index=False)
+        df.to_sql("staging_sales", mysql_engine,if_exists='replace',index=False)
         logger.info("sales data extraction completed.....")
 
     except Exception as e:
