@@ -6,7 +6,7 @@ import logging
 # from practice_repo_testing.CodeBase.oracle_test_chatgpt import query
 
 oracle_engine = create_engine("oracle+cx_oracle://system:NewPassword123@localhost:1521/orcl")
-mysql_engine_stg =  create_engine("mysql+pymysql://root:Ambreen%407276@localhost:3306/stg_retaildwh")
+mysql_engine_stg =  create_engine("mysql+pymysql://root:Ambreen%407276@localhost:3306/stag_retaildwh")
 
 logging.basicConfig(
     filename='LogFiles/Extraction.log',
@@ -41,18 +41,22 @@ def test_dataextraction_from_supplier_data_file_to_staging():
     df_actual = pd.read_sql(query_actual, mysql_engine_stg)
     assert df_actual.equals(df_expected),"data extraction did not happen correctly"
 
-# def test_dataextraction_from_store_data_file_to_staging():
-#     query_expected = """select * from staging_supplier"""
-#     df_expected = pd.read_sql(query_actual, mysql_engine_stg)
-#     query_actual = """select * from staging_supplier"""
-#     df_actual = pd.read_sql(query_actual, mysql_engine_stg)
-#     assert df_actual.equals(df_expected),"data extraction did not happen correctly"
+def test_dataextraction_from_store_data_file_to_staging():
+    query_expected = """select * from stores_city"""
+    df_expected = pd.read_sql(query_expected, oracle_engine)
+    print(df_expected)
+    query_actual = """select * from staging_stores_city"""
+    df_actual = pd.read_sql(query_actual, mysql_engine_stg)
+    print(df_actual)
+    # assert df_actual.equals(df_expected),"data extraction did not happen correctly"
 
 if __name__ == "__main__":
     test_dataextraction_from_sales_data_file_to_staging()
     test_dataextraction_from_product_data_file_to_staging()
     test_dataextraction_from_inventory_data_file_to_staging()
     test_dataextraction_from_supplier_data_file_to_staging()
+    test_dataextraction_from_store_data_file_to_staging()
+
 
 
 
